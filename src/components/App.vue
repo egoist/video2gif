@@ -86,11 +86,11 @@ export default {
 
       return new Promise((resolve, reject) => {
         video.onerror = reject
-        video.oncanplaythrough = () => resolve(video)
+        video.addEventListener('loadeddata', () => resolve(video))
       })
     },
 
-    encodeGIF(video) {
+    async encodeGIF(video) {
       this.progress = 'Converting..'
 
       const canvas = document.createElement('canvas')
@@ -117,7 +117,8 @@ export default {
           const pixels = ctx.getImageData(0, 0, width, height)
 
           const duration = video.currentTime - lastTime
-          this.progress = `Reading Video ${((video.currentTime / video.duration) *
+          this.progress = `Reading Video ${((video.currentTime /
+            video.duration) *
             100) |
             0}%..`
 
