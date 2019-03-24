@@ -6,6 +6,8 @@ You known that GIF is saved as Video on Twitter, I made this tool to convert tho
 
 https://video2gif.egoist.sh
 
+Example: https://video2gif.egoist.sh?video=https://video.twimg.com/tweet_video/D2aI3aFUkAE84AW.mp4 (Doesn't work on FireFox because of CORS Policy)
+
 ## Prior Art
 
 [tweet2gif](https://github.com/idiotWu/tweet2gif/).
