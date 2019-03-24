@@ -74,6 +74,7 @@ export default {
       video.crossOrigin = 'anonymous'
       video.muted = true
       video.src = url
+      video.width = this.videoWidth
 
       this.progress = `Loading video..`
 
