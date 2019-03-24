@@ -36,7 +36,7 @@ import workerScript from '!file-loader!gif.js/dist/gif.worker'
 export default {
   data() {
     return {
-      videoUrl: null,
+      videoUrl: this.$route.query.video,
       gif: null,
       videoWidth: 800,
       progress: null
@@ -46,6 +46,12 @@ export default {
   watch: {
     progress() {
       console.log(this.progress)
+    }
+  },
+
+  mounted() {
+    if (this.videoUrl) {
+      this.convert()
     }
   },
 
