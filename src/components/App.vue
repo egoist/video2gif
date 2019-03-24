@@ -3,14 +3,22 @@
     <header class="header">
       <h1 class="site-title">Convert Video to GIF</h1>
     </header>
-    <div class="select-file" @click="$refs.file.click()">Select .mp4 / .ogg / .webm file</div>
+    <div
+      class="select-file"
+      :class="{'is-dragover': isDragenter}"
+      @click="$refs.file.click()"
+      @dragenter.stop.prevent="onDragenter"
+      @dragover.stop.prevent="onDragenter"
+      @dragleave.stop.prevent="onDragleave"
+      @drop.stop.prevent="onDrop"
+    >Select .mp4 / .ogg / .webm file</div>
     <input
       type="file"
       ref="file"
       aria-label="Select file"
       style="display:none"
       @change="handleFile"
-      accept=".mp4, .ogg, .webm"
+      :accept="fileTypes.toString()"
     >
     <div class="preview">
       <div v-if="videoUrl" class="preview-item">
@@ -39,7 +47,9 @@ export default {
       videoUrl: this.$route.query.video,
       gif: null,
       videoWidth: 800,
-      progress: null
+      progress: null,
+      isDragenter: false,
+      fileTypes: ['.mp4', '.ogg', '.webm']
     }
   },
 
@@ -56,6 +66,27 @@ export default {
   },
 
   methods: {
+    onDragenter(event) {
+      this.isDragenter = true
+    },
+
+    onDragleave(event) {
+      this.isDragenter = false
+    },
+
+    onDrop(event) {
+      const file = event.dataTransfer.files[0]
+      const fileType = '.' + file.type.split('/')[1]
+
+      if (!this.fileTypes.includes(fileType)) {
+        return
+      }
+
+      this.videoUrl = URL.createObjectURL(file)
+      this.isDragenter = false
+      this.convert()
+    },
+
     async handleFile(e) {
       this.videoUrl = URL.createObjectURL(e.target.files[0])
       await this.convert()
@@ -200,6 +231,14 @@ function isSameFrame(a, b) {
 .select-file:hover {
   background: #f9f9f9;
   cursor: pointer;
+}
+
+.select-file.is-dragover {
+  background: #f9f9f9;
+}
+
+.select-file.is-warn {
+  background: hsl(348, 100%, 61%);
 }
 
 .video,
