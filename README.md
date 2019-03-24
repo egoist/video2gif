@@ -10,6 +10,10 @@ https://video2gif.egoist.sh
 
 [tweet2gif](https://github.com/idiotWu/tweet2gif/).
 
+## Browser Support
+
+Doesn't seem to work on Safari.
+
 ## License
 
 MIT.

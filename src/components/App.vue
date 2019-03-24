@@ -14,7 +14,7 @@
     >
     <div class="preview">
       <div v-if="videoUrl" class="preview-item">
-        <video class="video" :src="videoUrl" muted loop controls></video>
+        <video crossorigin="anonymous" class="video" :src="videoUrl" muted loop controls></video>
       </div>
       <div v-if="videoUrl" class="preview-item">
         <img v-if="gif" class="gif" :src="gif" alt>
